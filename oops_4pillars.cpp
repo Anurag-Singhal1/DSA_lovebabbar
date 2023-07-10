@@ -137,14 +137,22 @@ using namespace std;
 
 class Animal{
     public:
-    void speak(){          // virtual for upcasting
+    virtual void speak(){          // virtual for upcasting
         cout<<"Speaking "<<endl;
+    }
+    // animal constructor
+    Animal(){
+        cout<<"I am inside Animal "<<endl;
     }
 };
 class Dog : public Animal{
     public:
     void speak(){       // over-riding
         cout<<"Dog barks "<<endl;
+    }
+    // dog constructor
+    Dog(){
+        cout<<"I am inside Dog "<<endl;
     }
 };
 
@@ -160,12 +168,20 @@ int main(){
     // d->speak();
 
     // upcasting : parent class pointer, child class object pr create krte hai
-    Animal* a = new Dog;
-    a->speak();
+    // Animal* a = new Dog;
+    // a->speak();
 
     //downCASTING : chils class pointer here
-    Dog* d = (Dog*)new Animal;        // we typecasted into dog class.
-    d->speak();
+    // Dog* d = (Dog*)new Animal;        // we typecasted into dog class.
+    // d->speak();
+
+    // PLAYING WITH CONSTRUCTOR :
+    // Animal* a = new Animal;
+    // Animal* a = new Dog;
+    // Dog* a = new Dog;
+    // Dog a;
+    Dog* a = (Dog*)new Animal;
+
 
     return 0;
 }
