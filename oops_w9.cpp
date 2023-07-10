@@ -131,9 +131,14 @@ int main(){
 
 
     // DESTRUCTOR
-    Animal a;
+    Animal a;        // this static cons. got automatically deleted in the end
     a.age = 5;
-
+    Animal* b = new Animal;  // this dynamic constructor we have to delete manually.
+    b->age =12;
+    cout<<"Hello"<<endl;
+    // manually deleting
+    delete b;        // ye idhar hi delete ho jaayega
+    cout<<"Hello"<<endl;
 
     return 0;
 }
