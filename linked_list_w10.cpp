@@ -16,6 +16,7 @@ class Node{
     }
 };
 
+// print function of linked list
 void print(Node* &head){
     Node* temp = head;
     while(temp!=NULL){
