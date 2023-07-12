@@ -6,13 +6,24 @@ class Node{
     int data;
     Node* next;         // pointerr bcz it contains the address of the next node
 
-    Node(){              // constructor
+    Node(){              // default constructor
         this->data = 0;
         this->next = NULL;
     }
     Node(int data){        // parameterised constructor
         this->data = data;
         this->next = NULL;
+    }
+    // destructor to delete a node
+    ~Node(){
+        cout<<"Node with value : "<<this->data<<" deleted"<<endl;
+        // Node* current = this ;
+        // while( current != 0 ) {
+        //     Node* next = current->next;
+        //     delete current;
+        //     current = next;
+        // }
+        // this->data = 0;
     }
 };
 
@@ -99,6 +110,58 @@ void insertAtPosition(int data, int position, Node* &head, Node* &tail){
     prev->next = newNode;  
 }
 
+void deleteNode(int position, Node* &head, Node* &tail){
+    if(head==NULL){
+        cout<<"Cant delete, bcz it is empty Linked LIST. "<<endl;
+        return;
+    }
+    // deleting 1st node
+    if(position==1){
+        Node* temp = head;
+        head = head->next;
+        temp->next = NULL;
+        delete temp;
+        return;
+    }
+    int len = findLength(head);
+
+    // deleting last node
+    if(position==len){
+        // step1: find prev
+        int i=1;
+        Node* prev= head;
+        while(i<position-1){
+            prev= prev->next;
+            i++;
+        }
+        // step2: set prev next to null
+        prev->next = NULL;
+        // step3 : make temp
+        Node* temp = tail;
+        //step 4 : update tail
+        tail = prev;
+        //step 5 : delete temp
+        delete temp;
+        return;
+    }
+    // deleting any middle node
+    
+    //step1 : find prev and curr
+    int i =1;
+    Node* prev = head;
+    while(i<position-1){
+        prev= prev->next;
+        i++;
+    }
+    Node* curr = prev->next;
+    //step2 : breaking back link of curr
+    prev->next = curr->next;
+    //step3: breaking front link of curr
+    curr->next = NULL;
+    // step 4 : deleting curr node
+    delete curr;
+}
+
 int main(){
 
     // Node* head = new Node(10);
@@ -112,12 +175,16 @@ int main(){
 
     print(head);
     cout<<endl;
-    cout<<"head : "<<head->data <<endl;
-    cout<<"tail : "<<tail->data <<endl;
-    insertAtPosition(101,5,head,tail); // position : 2 ke baad insert krega
+    // cout<<"head : "<<head->data <<endl;
+    // cout<<"tail : "<<tail->data <<endl;
+    // insertAtPosition(101,5,head,tail); // position : 2 ke baad insert krega
+    // print(head);
+    // cout<<endl;
+    // cout<<"head : "<<head->data <<endl;
+    // cout<<"tail : "<<tail->data <<endl;
+
+    deleteNode(5,head,tail);
     print(head);
-    cout<<endl;
-    cout<<"head : "<<head->data <<endl;
-    cout<<"tail : "<<tail->data <<endl;
+
     return 0;
 }
