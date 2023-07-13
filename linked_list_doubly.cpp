@@ -17,6 +17,10 @@ class Node{
         this->prev = NULL;
         this->next = NULL;
     }
+    // destructor
+    ~Node(){
+        cout<<"Node with value : "<<this->data<<" deleted"<<endl;
+    }
 };
 
 void print(Node* &head){
@@ -109,6 +113,63 @@ void insertAtPosition(Node* &head,Node* &tail, int data, int position){
     curr->prev = newNode;
 }
 
+void deleteNode(Node* &head,Node* &tail, int position){
+    // if linked list is empty
+    if(head == NULL){
+        cout<<"Linked list was already empty "<<endl;
+        return;
+    }
+    // if only one node in linked list
+    if(head->next == NULL){
+        Node* temp = head;
+        head = NULL;
+        tail = NULL;
+        delete temp;
+        return;
+    }
+    // if position is greater than length
+    int len = getLength(head);
+    if(position  > len){
+        cout<<"Pls enter a valid position to delete "<<endl;
+        return;
+    }
+    // delete from starting : head
+    if(position == 1){
+        Node* temp = head;
+        head = head->next;
+        head->prev = NULL;
+        temp->next = NULL;
+        delete temp;
+        return;
+    }
+    // delete from ending : tail
+    // int len = getLength(head);
+    if(position == len){
+        Node* temp = tail;
+        tail = tail->prev;
+        tail->next = NULL;
+        temp->prev = NULL;
+        delete temp;
+        return;
+    }
+    // delete from middle positions ( left <=> temp <=> right )
+    int i=1;
+    Node* left = head;
+    while(i < position -1){
+        left = left->next;
+        i++;
+    }
+    Node* temp = left->next;
+    Node* right = temp->next;
+
+    left->next = right;
+    right->prev  =left;
+    temp->next = NULL;
+    temp->prev = NULL;
+    delete temp;
+    return;
+}
+
 int main(){
 
     Node* first = new Node(10);      // parameterised constructor called
@@ -132,6 +193,9 @@ int main(){
     print(head);
     cout<<endl;
     insertAtPosition(head,tail,700,1);
+    print(head);
+    cout<<endl;
+    deleteNode(head,tail,1);
     print(head);
     cout<<endl;
 

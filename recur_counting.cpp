@@ -7,11 +7,11 @@ using namespace std;
 // printing reverse counting
 void printCounting(int n){
     if(n==0){
-        return ;  // always have to iuse return in base case.
+        return ;  // always have to use return in base case.
     }
-    cout<<n<<" ";  // processing
+    // cout<<n<<" ";  // back counting
     printCounting(n-1);    // recursive reln
-    // cout<<n<<" ";     // to seedhi counting
+    cout<<n<<" ";     // forward counting
 }
 
 int main(){
