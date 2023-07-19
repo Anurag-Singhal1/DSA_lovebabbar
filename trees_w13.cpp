@@ -36,7 +36,8 @@ Node* buildTree(){   // building tree recursively
 
 void levelOrderTraversal(Node* root){
     queue<Node*> q;     // queue means FIFO (first in first out )
-    
+        
+
 }
 
 int main(){
