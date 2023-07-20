@@ -34,16 +34,83 @@ Node* buildTree(){   // building tree recursively
     return root;
 }
 
-void levelOrderTraversal(Node* root){
-    queue<Node*> q;     // queue means FIFO (first in first out )
-        
+void levelOrderTraversal(Node* root){      // root pointer that stores the address of root node
+    queue<Node*> q;     // queue means FIFO (first in first out ), queue ke andar node store krni hai
 
+    q.push(root);
+    q.push(NULL);
+
+    while(!q.empty()){
+        //A
+        Node* temp = q.front();
+        //B
+        q.pop();
+
+        if(temp==NULL){
+            cout<<endl;
+            if(!q.empty()){
+                q.push(NULL);
+            }
+        }
+        else{
+            //C
+            cout<<temp->data<<" ";
+            //D
+            if(temp->left){
+                q.push(temp->left);
+            } 
+            if(temp->right){
+                q.push(temp->right);
+            }
+        }
+    }
+}
+
+void inorderTraversal(Node* root){
+    // base case
+    if(root==NULL){  // means if root is a null pointer
+        return;
+    }
+    // lNR
+    inorderTraversal(root->left);
+    cout<<root->data <<" ";
+    inorderTraversal(root->right);
+}
+
+void preorderTraversal(Node* root){
+    // base case
+    if(root==NULL){  // means if root is a null pointer
+        return;
+    }
+    // NLR
+    cout<<root->data <<" ";
+    preorderTraversal(root->left);
+    preorderTraversal(root->right);
+}
+
+void postorderTraversal(Node* root){
+    // base case
+    if(root==NULL){  // means if root is a null pointer
+        return;
+    }
+    // LRN
+    postorderTraversal(root->left);
+    postorderTraversal(root->right);
+    cout<<root->data <<" ";
 }
 
 int main(){
 
     Node* root = NULL;
     root = buildTree();
+
+    levelOrderTraversal(root);
+    cout<<endl;
+    inorderTraversal(root);
+    cout<<endl;
+    preorderTraversal(root);
+    cout<<endl;
+    postorderTraversal(root);
 
     return 0;
 }
