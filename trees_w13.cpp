@@ -38,7 +38,7 @@ void levelOrderTraversal(Node* root){      // root pointer that stores the addre
     queue<Node*> q;     // queue means FIFO (first in first out ), queue ke andar node store krni hai
 
     q.push(root);
-    q.push(NULL);
+    q.push(NULL);      
 
     while(!q.empty()){
         //A
@@ -49,7 +49,7 @@ void levelOrderTraversal(Node* root){      // root pointer that stores the addre
         if(temp==NULL){
             cout<<endl;
             if(!q.empty()){
-                q.push(NULL);
+                q.push(NULL);            // front se hatao and back pe lagado if queue is not empty 
             }
         }
         else{

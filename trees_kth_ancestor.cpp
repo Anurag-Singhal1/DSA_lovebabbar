@@ -37,7 +37,7 @@ Node* buildTree(){   // building tree recursively
 
 bool kthAncestor(Node *root, int &k, int p)  // always pass by reference
 {
-    
+   
     if(root==NULL){
         return false;
     }
