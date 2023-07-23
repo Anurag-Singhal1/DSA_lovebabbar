@@ -41,10 +41,8 @@ void levelOrderTraversal(Node* root){      // root pointer that stores the addre
     q.push(NULL);      
 
     while(!q.empty()){
-        //A
-        Node* temp = q.front();
-        //B
-        q.pop();
+        Node* temp = q.front();     //A
+        q.pop();                    //B
 
         if(temp==NULL){
             cout<<endl;
@@ -53,10 +51,8 @@ void levelOrderTraversal(Node* root){      // root pointer that stores the addre
             }
         }
         else{
-            //C
-            cout<<temp->data<<" ";
-            //D
-            if(temp->left){
+            cout<<temp->data<<" ";          //C
+            if(temp->left){                 //D
                 q.push(temp->left);
             } 
             if(temp->right){

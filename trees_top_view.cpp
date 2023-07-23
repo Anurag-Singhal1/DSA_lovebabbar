@@ -71,7 +71,8 @@ void printTopView(Node* root){        // by help of level order traversal
     }
 }
 
-void printBottomView(Node* root){        // by help of level order traversal
+// bottom view 
+void printBottomView(Node* root){      // jsut removes the if condition of inserting in map
     if(root==NULL){
         return;
     }
@@ -92,7 +93,7 @@ void printBottomView(Node* root){        // by help of level order traversal
 
         
         topNode[hd] = frontNode->data;    
-        
+
         if(frontNode->left){       // if left exists of frontNode
             q.push(make_pair(frontNode->left,hd-1));
         }
@@ -107,14 +108,34 @@ void printBottomView(Node* root){        // by help of level order traversal
     }
 }
 
-int main(){
+// by recursion - as it is rightview just call right wala first
+void leftView(Node* root, vector<int> &ans, int level){   // ans by reference to track all the values, wapas jaate time we want no pop of values
+    // base case
+    if(root==NULL){
+        return;
+    }
+    if(ans.size()==level){
+        ans.push_back(root->data);
+    }
+    // recursion
+    leftView(root->left, ans, level+1);            // level increases
+    leftView(root->right, ans, level+1);
+}
 
-    // Node* root = NULL;
-    // root = buildTree();
+int main(){
 
     Node* root = buildTree();                // aise 1 line mein bhi kr skte hai
     // printTopView(root);
-    printBottomView(root);
+    // printBottomView(root);
+
+    // for left view
+    vector<int> ans;
+    int level = 0;
+    leftView(root,ans,level);
+    cout<<endl<<"Printing the left view : ";
+    for(auto i:ans){
+        cout<<i<<" ";
+    }cout<<endl;
     
     return 0;
 }
