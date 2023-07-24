@@ -71,41 +71,14 @@ void levelOrderTraversal(Node* root){      // root pointer that stores the addre
     }
 }
 
-void preOrderTraversal(Node* root){               // N L R
-    if(root==NULL){
-        return;
-    }
-    cout<<root->data<<" ";
-    preOrderTraversal(root->left);
-    preOrderTraversal(root->right);
-}
-
-void inOrderTraversal(Node* root){               // L N R
-    if(root==NULL){
-        return;
-    }
-    inOrderTraversal(root->left);
-    cout<<root->data<<" ";
-    inOrderTraversal(root->right);
-}
-
-void postOrderTraversal(Node* root){               // L R N 
-    if(root==NULL){
-        return;
-    }
-    postOrderTraversal(root->left);
-    postOrderTraversal(root->right);
-    cout<<root->data<<" ";
-}
-
 // searching in binary tree 
-bool findNodeInBST(Node* root, int target){
+Node* findNodeInBST(Node* root, int target){
     // base case
     if(root==NULL){
-        return false;
+        return NULL;
     }
     if(root->data==target){
-        return true;
+        return root;
     }
     if(target > root->data){
         return findNodeInBST(root->right,target);        // search in right sub-tree
@@ -113,18 +86,6 @@ bool findNodeInBST(Node* root, int target){
     else{
         return findNodeInBST(root->left,target);
     }
-}
-
-// finding minimum val in binary search tree
-int minVal(Node* root){
-    Node* temp = root;
-    if(temp==NULL){
-        return -1;
-    }
-    while(temp->left!=NULL){
-        temp = temp->left;
-    }
-    return temp->data;
 }
 
 // finding maximum val in binary search tree
@@ -139,6 +100,38 @@ int maxVal(Node* root){
     return temp->data;
 }
 
+// deleting the node - 4 cases  
+Node* deleteNodeInBST(Node* root, int target){
+    // base case
+    if(root== NULL){
+        return NULL; 
+    }
+    Node* temp = findNodeInBST(root, target);       // now i have to delete this temp
+
+    if(temp->left==NULL && temp->right==NULL){   
+        // leaf node
+        delete temp;
+        return NULL;
+    }
+    else if(temp->right==NULL && temp->left!=NULL){
+        Node* child = temp->left;
+        delete temp;
+        return child;
+    }
+    else if(temp->right!=NULL && temp->left==NULL){
+        Node* child = temp->right;
+        delete temp;
+        return child;
+    }
+    else{  // dono child exists
+    // inorder predecessor of left subtree  (left subtree mein max value)
+        int inorderPre = maxVal(temp->left);
+        temp->data  = inorderPre;
+        temp->left = deleteNodeInBST(temp->left, inorderPre);
+        return root;
+    }
+}
+
 int main(){
     Node* root = NULL;
     cout<<"Enter the data for node : ";
@@ -147,21 +140,9 @@ int main(){
     levelOrderTraversal(root);
     cout<<endl;
 
-    // cout<<"Printing inorder : "<<endl;
-    // inOrderTraversal(root);
-    // cout<<endl;
-    // cout<<"Printing preorder : "<<endl;
-    // preOrderTraversal(root);
-    // cout<<endl;
-    // cout<<"Printing postorder : "<<endl;
-    // postOrderTraversal(root);    
-    // cout<<endl;
-
-    // bool ans = findNodeInBST(root,155);
-    // cout<<"Present or not : "<<ans<<endl;
-
-    cout<<"Minimum value in BST is : "<<minVal(root)<<endl;
-    cout<<"Maximum value in BST is : "<<maxVal(root)<<endl;
+    deleteNodeInBST(root,100);
+    cout<<endl;
+    levelOrderTraversal(root);
 
     return 0;
 }
