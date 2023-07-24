@@ -2,11 +2,14 @@
 #include<iostream>
 using namespace std;
 
+// same level order traversal code of binary tree
+// -1 hote hi tree return kr dega
 class Node{
     public:
     int data;
     Node* left;
     Node* right;
+
     Node(int data){
         this->data = data;
         this->left= NULL;
@@ -14,90 +17,124 @@ class Node{
     }
 };
 
-Node* buildTree(){    // give values in preorder : N L R
-    int data;
-    cout<<"Enter the data : ";
-    cin>>data;
-
-    // base case
-    if(data==-1){
-        return NULL;
+Node* insertIntoBST(Node* root, int data){
+    if(root==NULL){                   // my tree is empty until now
+        root = new Node(data);           // this is the 1st node that we are creating
+        return root;
     }
-    // 3 STEPS  : create the node, call for left, then call for right
-    Node* root = new Node(data);
-
-    cout<<"Enter data for left part of "<<data<<" node "<<endl;
-    root->left = buildTree();
-    cout<<"Enter data for right part of "<<data<<" node "<<endl;
-    root->right = buildTree();
-
+    // not the first node
+    if(root->data > data){
+        // insert into left
+        root->left = insertIntoBST(root->left,data);
+    }else{
+        // insert into right
+        root->right = insertIntoBST(root->right,data);
+    }
     return root;
 }
 
-void printLeftBoundary(Node* root){                // it is left side boundary and not the left view    
-    // base case - if root is null or we are on leaf node, then go back
-    if(root==NULL){
-        return;
-    }
-    if(root->left==NULL && root->right==NULL){
-        return;
-    }
-    // print current node
-    cout<<root->data<<" ";
+void takeInput(Node* &root){
+    int data;
+    cin>>data;
 
-    if(root->left){       //if-else hi aayega, bca agar left nhi hai, only then right mein jaana hai, vrna nhi
-        printLeftBoundary(root->left);
-    }
-    else{                    // if left node is not present
-        printLeftBoundary(root->right); 
+    while(data!=-1){
+        root = insertIntoBST(root,data);
+        cin>>data;
     }
 }
 
-void printLeafBoundary(Node* root){      // boundary wale saare chahiye, so no if-else here 
-    if(root==NULL){
-        return;
+void levelOrderTraversal(Node* root){      // root pointer that stores the address of root node
+    queue<Node*> q;     // queue means FIFO (first in first out ), queue ke andar node store krni hai
+
+    q.push(root);
+    q.push(NULL);      
+
+    while(!q.empty()){
+        Node* temp = q.front();     //A
+        q.pop();                    //B
+
+        if(temp==NULL){
+            cout<<endl;
+            if(!q.empty()){
+                q.push(NULL);            // front se hatao and back pe lagado if queue is not empty 
+            }
+        }
+        else{
+            cout<<temp->data<<" ";          //C
+            if(temp->left){                 //D
+                q.push(temp->left);
+            } 
+            if(temp->right){
+                q.push(temp->right);
+            }
+        }
     }
-    if(root->left==NULL && root->right==NULL){ // if leaf node then just print
-        cout<<root->data<<" ";
-    }
-    // recursion
-    printLeafBoundary(root->left);
-    printLeafBoundary(root->right);
 }
 
-void printRightBoundary(Node* root){     // here we call for right side first, then for left 
+void preOrderTraversal(Node* root){               // N L R
     if(root==NULL){
         return;
-    }
-    if(root->left==NULL && root->right==NULL){ // if leaf node then print
-        return;
-    }
-    // call for right node
-    if(root->right){
-        printRightBoundary(root->right);
-    } 
-    else{                                       // if right node is not present
-        printRightBoundary(root->left);
     }
     cout<<root->data<<" ";
+    preOrderTraversal(root->left);
+    preOrderTraversal(root->right);
 }
 
-void boundaryTraversal(Node* root){
+void inOrderTraversal(Node* root){               // L N R
     if(root==NULL){
         return;
     }
-    cout<< root->data<<" ";           // root ko alag se hi print kara liya.
+    inOrderTraversal(root->left);
+    cout<<root->data<<" ";
+    inOrderTraversal(root->right);
+}
 
-    printLeftBoundary(root->left);           // A
-    printLeafBoundary(root);          // C
-    printRightBoundary(root->right);          // B
+void postOrderTraversal(Node* root){               // L R N 
+    if(root==NULL){
+        return;
+    }
+    postOrderTraversal(root->left);
+    postOrderTraversal(root->right);
+    cout<<root->data<<" ";
+}
+
+// searching in binary tree 
+bool findNodeInBST(Node* root, int target){
+    // base case
+    if(root==NULL){
+        return false;
+    }
+    if(root->data==target){
+        return true;
+    }
+    if(target > root->data){
+        return findNodeInBST(root->right,target);        // search in right sub-tree
+    }
+    else{
+        return findNodeInBST(root->left,target);
+    }
 }
 
 int main(){
-
-    Node* root = buildTree();
+    Node* root = NULL;
+    cout<<"Enter the data for node : ";
+    takeInput(root);
+    cout<<"Printing the tree : "<<endl;
+    levelOrderTraversal(root);
     cout<<endl;
-    boundaryTraversal(root);
+
+    cout<<"Printing inorder : "<<endl;
+    inOrderTraversal(root);
+    cout<<endl;
+    cout<<"Printing preorder : "<<endl;
+    preOrderTraversal(root);
+    cout<<endl;
+    cout<<"Printing postorder : "<<endl;
+    postOrderTraversal(root);    
+    cout<<endl;
+
+    bool ans = findNodeInBST(root,155);
+    cout<<"Present or not : "<<ans<<endl;
 
     return 0;
 }
