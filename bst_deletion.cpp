@@ -50,48 +50,31 @@ void levelOrderTraversal(Node* root){      // root pointer that stores the addre
     q.push(NULL);      
 
     while(!q.empty()){
-        Node* temp = q.front();     //A
+        Node* root = q.front();     //A
         q.pop();                    //B
 
-        if(temp==NULL){
+        if(root==NULL){
             cout<<endl;
             if(!q.empty()){
                 q.push(NULL);            // front se hatao and back pe lagado if queue is not empty 
             }
         }
         else{
-            cout<<temp->data<<" ";          //C
-            if(temp->left){                 //D
-                q.push(temp->left);
+            cout<<root->data<<" ";          //C
+            if(root->left){                 //D
+                q.push(root->left);
             } 
-            if(temp->right){
-                q.push(temp->right);
+            if(root->right){
+                q.push(root->right);
             }
         }
-    }
-}
-
-// searching in binary tree 
-Node* findNodeInBST(Node* root, int target){
-    // base case
-    if(root==NULL){
-        return NULL;
-    }
-    if(root->data==target){
-        return root;
-    }
-    if(target > root->data){
-        return findNodeInBST(root->right,target);        // search in right sub-tree
-    }
-    else{
-        return findNodeInBST(root->left,target);
     }
 }
 
 // finding maximum val in binary search tree
 int maxVal(Node* root){
     Node* temp = root;
-    if(temp==NULL){
+    if(temp==NULL){ 
         return -1;
     }
     while(temp->right!=NULL){
@@ -106,30 +89,37 @@ Node* deleteNodeInBST(Node* root, int target){
     if(root== NULL){
         return NULL; 
     }
-    Node* temp = findNodeInBST(root, target);       // now i have to delete this temp
 
-    if(temp->left==NULL && temp->right==NULL){   
-        // leaf node
-        delete temp;
-        return NULL;
+    if(root->data == target){            // 4 cases here
+        if(root->left==NULL && root->right==NULL){      // leaf node
+            delete root;
+            return NULL;
+        }
+        else if(root->right==NULL && root->left!=NULL){
+            Node* child = root->left;
+            delete root;
+            return child;
+        }
+        else if(root->right!=NULL && root->left==NULL){
+            Node* child = root->right;
+            delete root;
+            return child;
+        }
+        else{  // dono child exists
+        // inorder predecessor of left subtree  (left subtree mein max value)
+            int inorderPre = maxVal(root->left);
+            root->data  = inorderPre;
+            root->left = deleteNodeInBST(root->left, inorderPre);
+            return root;
+        }
     }
-    else if(temp->right==NULL && temp->left!=NULL){
-        Node* child = temp->left;
-        delete temp;
-        return child;
+    else if(target > root->data){                                   // right jao
+        root->right = deleteNodeInBST(root->right, target);
     }
-    else if(temp->right!=NULL && temp->left==NULL){
-        Node* child = temp->right;
-        delete temp;
-        return child;
+    else if(target < root->data){                                  // left jao
+        root->left = deleteNodeInBST(root->left, target);
     }
-    else{  // dono child exists
-    // inorder predecessor of left subtree  (left subtree mein max value)
-        int inorderPre = maxVal(temp->left);
-        temp->data  = inorderPre;
-        temp->left = deleteNodeInBST(temp->left, inorderPre);
-        return root;
-    }
+    return root;
 }
 
 int main(){
