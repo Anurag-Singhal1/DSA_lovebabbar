@@ -5,7 +5,7 @@ class Node{
     public:
     int data;
     Node* next;
-    Node(){
+    Node(){                            // empty bhi banake chorna jruri hota hai
         this->data= 0;
         this->next = NULL;
     }
