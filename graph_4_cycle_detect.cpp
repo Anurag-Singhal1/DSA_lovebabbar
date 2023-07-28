@@ -52,6 +52,9 @@ class Graph{
             }
         }
     }
+    bool checkCyclicUsingBfs(){         // using bfs algo we will check cyclic nature 
+
+    }
 };
 
 
@@ -67,23 +70,24 @@ int main(){
     
     g.printAdjacencyList();
 
-    unordered_map<int, bool> visited;
-    // run a loop for all nodes - for lop bcz so that we can manage disconnected graph also, but gud practice 
-    // so use it whether graph is connected or not.
-    cout<<endl<<"Printing BFS traversal : "<<endl;
-    for(int i=0;i<n;i++){
-        if(!visited[i]){
-            g.bfs(i, visited);             // har node ko source( starting vertex of graph) maanke call krenge
-        }
-    }
-    cout<<endl<<"Printing DFS traversal : "<<endl;
-    unordered_map<int, bool> visited2;
-    for(int i=0;i<n;i++){
-        if(!visited2[i]){
-            g.dfs(i, visited2);             // har node ko source( starting vertex of graph) maanke call krenge
-        }
-    }
+    
+
+
+    // unordered_map<int, bool> visited;
+    // cout<<endl<<"Printing BFS traversal : "<<endl;
+    // for(int i=0;i<n;i++){
+    //     if(!visited[i]){
+    //         g.bfs(i, visited);          
+    //     }
+    // }
+    // unordered_map<int, bool> visited2;
+    // cout<<endl<<"Printing DFS traversal : "<<endl;
+    // for(int i=0;i<n;i++){
+    //     if(!visited2[i]){
+    //         g.dfs(i, visited2);         
+    //     }
+    // }
 
 
     return 0;
-}
+}       
