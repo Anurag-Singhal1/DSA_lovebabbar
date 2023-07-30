@@ -17,7 +17,7 @@ int solveUsingRecursion(int weight[], int value[], int index, int capacity){
             return 0;                   // weight[0] is more than capacity, tb nhi aa paayega na so 0.
         }
     }
-    // include case
+    // include  case
     int include = 0 ;
     if(weight[index]<=capacity){
         include = value[index] + solveUsingRecursion(weight,value, index-1,capacity-weight[index]); //2 parameter changes hence, 2-d dp
