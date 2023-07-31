@@ -8,11 +8,11 @@ void subsequences(string str,string output,int i,int n){
         return;
     }
     // exclude
-    cout<<"Bfore excluding (Output is :"<<output<<") "<<"  (i is : "<<i<<") "<<endl;
+    // cout<<"Bfore excluding (Output is :"<<output<<") "<<"  (i is : "<<i<<") "<<endl;
     subsequences(str,output,i+1,n);
     // include
     // output.push_back(str[i]);      
-    cout<<"Bfore including (Output is :"<<output<<") "<<"  (i is : "<<i<<") "<<endl;
+    // cout<<"Bfore including (Output is :"<<output<<") "<<"  (i is : "<<i<<") "<<endl;
     subsequences(str,output+str[i],i+1,n);
 }
 
