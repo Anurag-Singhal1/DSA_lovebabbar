@@ -8,7 +8,7 @@ class Graph{
     unordered_map<int,list<int> > adjList;                         // we can use anything list or vector
     // unordered_map<int,list<pair<int,int> > > adjList;          // to also add weight of edges 
 
-    // void addEdge(int u, int v,int weight,  bool direction){
+    // void addEdge(int u, int v,int weight, bool direction){
     void addEdge(int u, int v,  bool direction){
         // direction 0 - undirected graph
         // direction 1 - directed graph
