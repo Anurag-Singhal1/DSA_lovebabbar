@@ -2,8 +2,8 @@
 #include<iostream>
 using namespace std;
 
- // list bcz we have to store all pairs neighbour to that node
-class Graph{
+ //     list bcz we have to store all pairs neighbour to that node
+class Graph{      
     public:
     unordered_map<int,list<int> > adjList;                         // we can use anything list or vector
     // unordered_map<int,list<pair<int,int> > > adjList;          // to also add weight of edges 
