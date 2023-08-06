@@ -51,5 +51,17 @@ int main(){
         cout<<i.first <<" -> "<<i.second<<endl;
     }
 
+    m.erase("Alto");
+    cout<<endl<<"After erasing printing all Entries  :  "<<endl;
+    for(auto i : m){                                       // prints in lifo order
+        cout<<i.first <<" -> "<<i.second<<endl;
+    }cout<<endl;
+
+    // find - returns the iterator of that particular element
+    auto it = m.find("fortuner");
+    for(auto i = it; i!=m.end();i++){
+        cout<<(*i).first<<" ";
+    }cout<<endl;
+
     return 0;
 }

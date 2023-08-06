@@ -2,8 +2,9 @@
 #include<iostream>
 using namespace std;
 template<typename T>                       // ye upar namespace se neeche hi aayega hamesha  
-// int ki jgah T krna hai bs in graph
 
+// this is just to learn template <typename>
+// int ki jgah T krna hai bs in graph
 // if we want char like a,b,c in place of integers, so we make it a generic graph
 class Graph{
     public:
