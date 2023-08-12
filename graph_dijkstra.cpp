@@ -47,11 +47,11 @@ class Graph{
             st.erase(st.begin());                        // in set we have erase instead of pop
 
             for(auto nbr : adjList[node]){
-                if(nodeDistance + nbr.second < dist[nbr.first]){     // to update distance
+                if(nodeDistance + nbr.second < dist[nbr.first]){     // to update distance(nbr.second is weight)
                     // finding entry in set
                     auto result = st.find({dist[nbr.first],nbr.first});
                     // if found in set, then remove and update that
-                    if(result!=st.end()){
+                    if(result!=st.end()){                    // end tak nhi pahuche, means mil gya then erase
                         st.erase(result);
                     }
                     // now update in distance array and set
@@ -60,8 +60,9 @@ class Graph{
                 }
             }
         }
+        // dist array have the shortest distance to all nodes from the src node 
         cout<<"Printing the Ans : "<<endl;
-        for(auto i : dist){                            // now jsut print the dist array
+        for(auto i : dist){              // now jsut print the dist array
             cout<<i<<", ";
         }cout<<endl;
     }
