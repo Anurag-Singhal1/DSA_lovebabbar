@@ -6,7 +6,7 @@ class Stack{
     public:
     int* arr;
     int size;    // it shows total array size and not the no of elements
-    int top;     // top is the index of top most element of index.
+    int top;     // top is the index of top most element
 
     Stack(int size){        // constructor
         arr = new int[size];
