@@ -5,29 +5,37 @@ class abc{
     int a;
     int* b;
     int c;
-
-    abc(int _a, int _b, int _c){
+ 
+    public:
+    abc(int _a, int _b, int _c=0){                       // constructor 
         a = _a;
         b = new int(_b);
         c = _c;
     }
     // initialisation list  : new style of constructor writing 
+
     // abc(int _a, int _b, int _c): a(_a), b(new int(_b)), c(_c){}
 
-    int getA(){
+    int getA() const {                                // getters
         return a;
     }
-    void setX(int _val){
+    void setA(int _val){                       // setters 
         a = _val;
     }
 
+    int getB() const{
+        return *b;
+    }
+
+};
+
+void printABC(const abc &a){                // const hai, so we can only call get functions and not set()  
+    cout<<a.getA() << " ";
 }
 
-abc x = 
-
 int main(){
-    int a=2;
-    cout<<a;
+    abc a(5,2);
+    printABC(a);
 
     return 0;
 }
