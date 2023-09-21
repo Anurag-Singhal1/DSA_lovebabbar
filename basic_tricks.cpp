@@ -54,11 +54,11 @@ int main(){
         cout<<v[i]<<" ";
     }cout<<endl; */
 
-    // cout<<'A'+1;   // gives an integer
+    cout<<'A'+1<<endl;   // gives an integer
     // cout<<char('A'+1);  // gives B 
     
-    // int c = 0647 ;
-    // cout<<c<<endl;    // gives 423 due to octal address
+    int c = 0647 ;
+    cout<<c<<endl;    // gives 423 due to octal address
 
     // vector<int> v(7);
     // v[0]=6;   // we can take input like this if we initialise the size before ...here (7)
