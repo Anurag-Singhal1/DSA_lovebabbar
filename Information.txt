@@ -1,0 +1,2 @@
+boiler plate - shortcut for syntax
+cp - shortcut for competitive coding 
